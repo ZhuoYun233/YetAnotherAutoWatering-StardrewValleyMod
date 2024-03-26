@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("YetAnotherAutoWatering")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+02b5520a185dc62173e3f25bcb3f00c63b074d17")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4d52d29d58786e1345b3b504c82e84f12948e455")]
 [assembly: System.Reflection.AssemblyProductAttribute("YetAnotherAutoWatering")]
 [assembly: System.Reflection.AssemblyTitleAttribute("YetAnotherAutoWatering")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

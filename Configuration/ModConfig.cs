@@ -13,15 +13,20 @@ namespace YetAnotherAutoWatering.Configuration
         public bool Enabled { get; set; } = true;
 
         /// <summary>
-        /// Sets the button to reload this config file, default f5
+        /// OLD VERSION: Sets the button to reload this config file, default F5
         /// </summary>
-        public SButton ConfigReloadKey { get; set; } = SButton.F5;
+        //public SButton ConfigReloadKey { get; set; } = SButton.F5;
 
         /// <summary>
-        /// Optional integer that represents the fertilizer to auto apply to all, default null
-        /// Possible values:
-        ///     null: Disable auto changing the fertilizer
-        ///     0: Always remove all fertilizer
+        /// Sets the button to auto water once manually, default F6
+        /// </summary>
+        public SButton WaterNowKey { get; set; } = SButton.F6;
+
+        /// <summary>
+        /// Auto fertilizing type, default disabled.
+        /// Corresponding ID and Possible type values:
+        ///     null: Disabled
+        ///     0:   Remove all fertilizer
         ///     368: Basic Fertilizer
         ///     369: Quality Fertilizer
         ///     370: Basic Retaining Soil
@@ -31,10 +36,8 @@ namespace YetAnotherAutoWatering.Configuration
         ///     918: Hyper Speed-Gro
         ///     919: Deluxe Fertilizer
         ///     920: Deluxe Retaining Soil
-        ///     
         /// </summary>
-        public int? Fertilizer { get; set; } = null;
-
+        public string FertilizerType { get; set; } = "Disabled";
         /// <summary>
         /// Sets what days of the week to auto water, default every day
         /// </summary>

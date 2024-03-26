@@ -9,6 +9,8 @@ using StardewValley.TerrainFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GenericModConfigMenu;
+using System.Xml.Linq;
 
 namespace YetAnotherAutoWatering
 {
@@ -22,13 +24,28 @@ namespace YetAnotherAutoWatering
         
         private ModConfig _config;
         private bool _shouldWaterToday = true;
+        private bool _keyPressWater = false;
 
-        //list of valid fertilizer IDs
-        private readonly List<int?> _validFertilizerID = new List<int?> {368, 369, 370, 371, 465, 466, 918, 919, 920};
+        //Defination of fertilizer ID.
+        private static readonly Dictionary<string, int?> _validFertilizerDict = new Dictionary<string, int?>()
+        {
+            { "Disabled", null },
+            { "Remove all fertilizer", 0 },
+            { "Basic Fertilizer", 368 },
+            { "Quality Fertilizer", 369 },
+            { "Basic Retaining Soil", 370 },
+            { "Quality Retaining Soil", 371 },
+            { "Speed-Gro", 465 },
+            { "Deluxe Speed-Gro", 466 },
+            { "Hyper Speed-Gro", 918 },
+            { "Deluxe Fertilizer", 919 },
+            { "Deluxe Retaining Soil", 920 }
+        };
 
         public override void Entry(IModHelper helper)
         {
             _config = helper.ReadConfig<ModConfig>();
+            helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
             helper.Events.GameLoop.DayStarted += this.OnDayStarted;
             helper.Events.GameLoop.SaveLoaded += this.OnSaveLoaded;
             helper.Events.World.TerrainFeatureListChanged += this.OnTerrainFeatureListChanged;
@@ -36,20 +53,129 @@ namespace YetAnotherAutoWatering
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
         }
 
+        private void OnGameLaunched(object sender, GameLaunchedEventArgs e)
+        {
+            // get Generic Mod Config Menu's API (if it's installed)
+            var configMenu = this.Helper.ModRegistry.GetApi<IGenericModConfigMenuApi>("spacechase0.GenericModConfigMenu");
+            if (configMenu is null)
+                return;
+
+            // register mod
+            configMenu.Register(
+                mod: this.ModManifest,
+                reset: () => this._config = new ModConfig(),
+                save: () => this.Helper.WriteConfig(this._config)
+            );
+
+            //Main options
+            configMenu.AddSectionTitle(
+                mod: this.ModManifest,
+                tooltip: () => "Basic configurations",
+                text: () => "Main Options"
+            );
+            configMenu.AddBoolOption(
+                mod: this.ModManifest,
+                name: () => "Enable Auto Watering",
+                tooltip: () => "Check to enable this mod",
+                getValue: () => this._config.Enabled,
+                setValue: value => this._config.Enabled = value
+            );
+            configMenu.AddTextOption(
+                mod: this.ModManifest,
+                name: () => "Auto Fertilizing",
+                tooltip: () => "Choose which kind of fertilizer to be automatically applied. Disabled by default.",
+                getValue: () => _config.FertilizerType,
+                setValue: value => _config.FertilizerType = value,
+                allowedValues: new string[] {"Disabled", "Remove all fertilizer", "Basic Fertilizer", "Quality Fertilizer", "Basic Retaining Soil", "Quality Retaining Soil", "Speed-Gro", "Deluxe Speed-Gro", "Hyper Speed-Gro", "Deluxe Fertilizer", "Deluxe Retaining Soil"}
+            );
+            configMenu.AddKeybind(
+                mod: this.ModManifest,
+                name: () => "Water Now Key",
+                tooltip: () => "Press the key to manually water all crops. Still works even when Auto Watering is disabled.",
+                getValue: () => _config.WaterNowKey,
+                setValue: value => _config.WaterNowKey = value
+            );
+
+            //Days to water Configuration
+            configMenu.AddSectionTitle(
+                mod: this.ModManifest,
+                tooltip: () => "Choose days to auto water, only functional if Auto Watering is enabled.",
+                text: () => "Days to water"
+            );
+            configMenu.AddBoolOption(
+                mod: this.ModManifest,
+                name: () => "Sunday",
+                tooltip: () => "Check to auto water on this day.",
+                getValue: () => this._config.DaysToWater.Sunday,
+                setValue: value => this._config.DaysToWater.Sunday = value
+            );
+            configMenu.AddBoolOption(
+                mod: this.ModManifest,
+                name: () => "Monday",
+                tooltip: () => "Check to auto water on this day.",
+                getValue: () => this._config.DaysToWater.Monday,
+                setValue: value => this._config.DaysToWater.Monday = value
+            );
+            configMenu.AddBoolOption(
+                mod: this.ModManifest,
+                name: () => "Tuesday",
+                tooltip: () => "Check to auto water on this day.",
+                getValue: () => this._config.DaysToWater.Tuesday,
+                setValue: value => this._config.DaysToWater.Tuesday = value
+            );
+            configMenu.AddBoolOption(
+                mod: this.ModManifest,
+                name: () => "Wednesday",
+                tooltip: () => "Check to auto water on this day.",
+                getValue: () => this._config.DaysToWater.Wednesday,
+                setValue: value => this._config.DaysToWater.Wednesday = value
+            );
+            configMenu.AddBoolOption(
+                mod: this.ModManifest,
+                name: () => "Thursday",
+                tooltip: () => "Check to auto water on this day.",
+                getValue: () => this._config.DaysToWater.Thursday,
+                setValue: value => this._config.DaysToWater.Thursday = value
+            );
+            configMenu.AddBoolOption(
+                mod: this.ModManifest,
+                name: () => "Friday",
+                tooltip: () => "Check to auto water on this day.",
+                getValue: () => this._config.DaysToWater.Friday,
+                setValue: value => this._config.DaysToWater.Friday = value
+            );
+            configMenu.AddBoolOption(
+                mod: this.ModManifest,
+                name: () => "Saturday",
+                tooltip: () => "Check to auto water on this day.",
+                getValue: () => this._config.DaysToWater.Saturday,
+                setValue: value => this._config.DaysToWater.Saturday = value
+            );
+
+        }
+
         private void OnButtonPressed(object sender, ButtonPressedEventArgs e)
         {
-            if (e.Button == _config.ConfigReloadKey)
+            //Old version Reload Key
+            /*if (e.Button == _config.ConfigReloadKey)
             {
                 _config = Helper.ReadConfig<ModConfig>();
                 Monitor.Log("Config file reloaded", LogLevel.Warn);
-                CheckIfValidID();
+            }*/
+            if (e.Button == _config.WaterNowKey)
+            {
+                _keyPressWater = true;
+                foreach (var hoeDirt in _hoeDirts)
+                    this.Water(hoeDirt);
+                foreach (var indoorPot in _indoorPots)
+                    this.Water(indoorPot.hoeDirt.Value, indoorPot);
+                _keyPressWater = false;
             }
         }
 
         private void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
         {
             _shouldWaterToday = ShouldAutoWaterToday();
-            CheckIfValidID();
 
             var builtLocations = Game1.locations.OfType<GameLocation>() //Changed BuildableGameLocation to GameLocation. It solved the Error but I don't know if it causes other problems. So far so good.
                 .SelectMany(location => location.buildings)
@@ -160,15 +286,15 @@ namespace YetAnotherAutoWatering
 
         private void Water(HoeDirt hoeDirt, IndoorPot pot = null)
         {
-            if (!_config.Enabled || !_shouldWaterToday)
+            if (!_keyPressWater && (!_config.Enabled || !_shouldWaterToday))
                 return;
 
             hoeDirt.state.Value = HoeDirt.watered;
-            if (_config.Fertilizer != null)
+            if (_config.FertilizerType != "Disabled")
             {
-                if (_validFertilizerID.Contains(_config.Fertilizer))
-                    hoeDirt.fertilizer.Value = ItemRegistry.QualifyItemId(_config.Fertilizer.ToString());
-                else if (_config.Fertilizer == 0)
+                if (_validFertilizerDict[_config.FertilizerType] != 0)
+                    hoeDirt.fertilizer.Value = ItemRegistry.QualifyItemId(_validFertilizerDict[_config.FertilizerType].ToString());
+                else 
                     //Always remove all fertilizer
                     hoeDirt.fertilizer.Value = null;
             }
@@ -194,12 +320,5 @@ namespace YetAnotherAutoWatering
             }
         }
 
-        private void CheckIfValidID()
-        {
-            if (_config.Fertilizer != null && _config.Fertilizer != 0 && !_validFertilizerID.Contains(_config.Fertilizer))
-            {
-                Monitor.Log($"Invalid fertilizer ID: {_config.Fertilizer}, auto fertilizing disabled.", LogLevel.Warn);
-            }
-        }
     }
 }
