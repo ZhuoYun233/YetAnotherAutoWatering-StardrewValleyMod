@@ -6,19 +6,19 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "Yet Another Auto Watering/1.0.0": {
+      "YetAnotherAutoWatering/1.0.0": {
         "dependencies": {
           "Pathoschild.Stardew.ModBuildConfig": "4.1.1"
         },
         "runtime": {
-          "Yet Another Auto Watering.dll": {}
+          "YetAnotherAutoWatering.dll": {}
         }
       },
       "Pathoschild.Stardew.ModBuildConfig/4.1.1": {}
     }
   },
   "libraries": {
-    "Yet Another Auto Watering/1.0.0": {
+    "YetAnotherAutoWatering/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

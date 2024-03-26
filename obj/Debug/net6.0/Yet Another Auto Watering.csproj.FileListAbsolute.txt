@@ -6,3 +6,4 @@ I:\Desktop\Autowatering\AutoWateringNew\AutoWateringNew\obj\Debug\net6.0\Yet Ano
 I:\Desktop\Autowatering\AutoWateringNew\AutoWateringNew\obj\Debug\net6.0\Yet Another Auto Watering.AssemblyInfo.cs
 I:\Desktop\Autowatering\AutoWateringNew\AutoWateringNew\obj\Debug\net6.0\Yet Another Auto Watering.csproj.CoreCompileInputs.cache
 I:\Desktop\Autowatering\AutoWateringNew\AutoWateringNew\obj\Debug\net6.0\Yet Another Auto Watering.dll
+I:\Desktop\Autowatering\AutoWateringNew\AutoWateringNew\obj\Debug\net6.0\Yet Another Auto Watering.sourcelink.json

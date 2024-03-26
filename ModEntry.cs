@@ -1,4 +1,4 @@
-﻿using AutoWateringNew.Configuration;
+﻿using YetAnotherAutoWatering.Configuration;
 using Netcode;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AutoWateringNew
+namespace YetAnotherAutoWatering
 {
     /// <summary>The mod entry point.</summary>
     internal class ModEntry : Mod
@@ -22,6 +22,9 @@ namespace AutoWateringNew
         
         private ModConfig _config;
         private bool _shouldWaterToday = true;
+
+        //list of valid fertilizer IDs
+        private readonly List<int?> _validFertilizerID = new List<int?> {368, 369, 370, 371, 465, 466, 918, 919, 920};
 
         public override void Entry(IModHelper helper)
         {
@@ -39,14 +42,16 @@ namespace AutoWateringNew
             {
                 _config = Helper.ReadConfig<ModConfig>();
                 Monitor.Log("Config file reloaded", LogLevel.Warn);
+                CheckIfValidID();
             }
         }
 
         private void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
         {
             _shouldWaterToday = ShouldAutoWaterToday();
+            CheckIfValidID();
 
-            var builtLocations = Game1.locations.OfType<GameLocation>()
+            var builtLocations = Game1.locations.OfType<GameLocation>() //Changed BuildableGameLocation to GameLocation. It solved the Error but I don't know if it causes other problems. So far so good.
                 .SelectMany(location => location.buildings)
                 .Select(building => building.indoors.Value)
                 .Where(location => location != null);
@@ -160,8 +165,14 @@ namespace AutoWateringNew
 
             hoeDirt.state.Value = HoeDirt.watered;
             if (_config.Fertilizer != null)
-                ;
-               // hoeDirt.fertilizer.Value = _config.Fertilizer.Value;
+            {
+                if (_validFertilizerID.Contains(_config.Fertilizer))
+                    hoeDirt.fertilizer.Value = ItemRegistry.QualifyItemId(_config.Fertilizer.ToString());
+                else if (_config.Fertilizer == 0)
+                    //Always remove all fertilizer
+                    hoeDirt.fertilizer.Value = null;
+            }
+
             if (pot != null)
                 pot.showNextIndex.Value = true;
         }
@@ -180,6 +191,14 @@ namespace AutoWateringNew
                 case 5: return _config.DaysToWater.Friday;
                 case 6: return _config.DaysToWater.Saturday;
                 default: return true;
+            }
+        }
+
+        private void CheckIfValidID()
+        {
+            if (_config.Fertilizer != null && _config.Fertilizer != 0 && !_validFertilizerID.Contains(_config.Fertilizer))
+            {
+                Monitor.Log($"Invalid fertilizer ID: {_config.Fertilizer}, auto fertilizing disabled.", LogLevel.Warn);
             }
         }
     }

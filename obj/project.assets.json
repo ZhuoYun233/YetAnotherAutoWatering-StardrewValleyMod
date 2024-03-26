@@ -43,9 +43,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "I:\\Desktop\\Autowatering\\AutoWateringNew\\AutoWateringNew\\Yet Another Auto Watering.csproj",
-      "projectName": "Yet Another Auto Watering",
-      "projectPath": "I:\\Desktop\\Autowatering\\AutoWateringNew\\AutoWateringNew\\Yet Another Auto Watering.csproj",
+      "projectUniqueName": "I:\\Desktop\\Autowatering\\AutoWateringNew\\AutoWateringNew\\YetAnotherAutoWatering.csproj",
+      "projectName": "YetAnotherAutoWatering",
+      "projectPath": "I:\\Desktop\\Autowatering\\AutoWateringNew\\AutoWateringNew\\YetAnotherAutoWatering.csproj",
       "packagesPath": "C:\\Users\\于昊男\\.nuget\\packages\\",
       "outputPath": "I:\\Desktop\\Autowatering\\AutoWateringNew\\AutoWateringNew\\obj\\",
       "projectStyle": "PackageReference",

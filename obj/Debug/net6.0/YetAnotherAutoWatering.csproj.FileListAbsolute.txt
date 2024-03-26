@@ -1,0 +1,9 @@
+I:\Desktop\Autowatering\AutoWateringNew\AutoWateringNew\bin\Debug\net6.0\YetAnotherAutoWatering.deps.json
+I:\Desktop\Autowatering\AutoWateringNew\AutoWateringNew\bin\Debug\net6.0\YetAnotherAutoWatering.dll
+I:\Desktop\Autowatering\AutoWateringNew\AutoWateringNew\obj\Debug\net6.0\YetAnotherAutoWatering.csproj.AssemblyReference.cache
+I:\Desktop\Autowatering\AutoWateringNew\AutoWateringNew\obj\Debug\net6.0\YetAnotherAutoWatering.GeneratedMSBuildEditorConfig.editorconfig
+I:\Desktop\Autowatering\AutoWateringNew\AutoWateringNew\obj\Debug\net6.0\YetAnotherAutoWatering.AssemblyInfoInputs.cache
+I:\Desktop\Autowatering\AutoWateringNew\AutoWateringNew\obj\Debug\net6.0\YetAnotherAutoWatering.AssemblyInfo.cs
+I:\Desktop\Autowatering\AutoWateringNew\AutoWateringNew\obj\Debug\net6.0\YetAnotherAutoWatering.csproj.CoreCompileInputs.cache
+I:\Desktop\Autowatering\AutoWateringNew\AutoWateringNew\obj\Debug\net6.0\YetAnotherAutoWatering.sourcelink.json
+I:\Desktop\Autowatering\AutoWateringNew\AutoWateringNew\obj\Debug\net6.0\YetAnotherAutoWatering.dll

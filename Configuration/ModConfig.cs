@@ -1,6 +1,6 @@
 ﻿using StardewModdingAPI;
 
-namespace AutoWateringNew.Configuration
+namespace YetAnotherAutoWatering.Configuration
 {
     /// <summary>
     /// Config file for Autowatering
@@ -20,14 +20,18 @@ namespace AutoWateringNew.Configuration
         /// <summary>
         /// Optional integer that represents the fertilizer to auto apply to all, default null
         /// Possible values:
-        ///     null: disable auto changing the fertilizer
-        ///     0: always remove all fertilizer
-        ///     368: low quality fertilizer
-        ///     369: high quality fertilizer
-        ///     370: water retention soil
-        ///     371: quality water retention soil
-        ///     465: speed gro
-        ///     466: super speed gro
+        ///     null: Disable auto changing the fertilizer
+        ///     0: Always remove all fertilizer
+        ///     368: Basic Fertilizer
+        ///     369: Quality Fertilizer
+        ///     370: Basic Retaining Soil
+        ///     371: Quality Retaining Soil
+        ///     465: Speed-Gro
+        ///     466: Deluxe Speed-Gro
+        ///     918: Hyper Speed-Gro
+        ///     919: Deluxe Fertilizer
+        ///     920: Deluxe Retaining Soil
+        ///     
         /// </summary>
         public int? Fertilizer { get; set; } = null;
 
