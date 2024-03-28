@@ -71,7 +71,7 @@ namespace YetAnotherAutoWatering
             configMenu.AddSectionTitle(
                 mod: this.ModManifest,
                 tooltip: () => "Basic configurations",
-                text: () => "Main Options"
+                text: () => "Загальні налаштування"
             );
             configMenu.AddBoolOption(
                 mod: this.ModManifest,
@@ -82,15 +82,15 @@ namespace YetAnotherAutoWatering
             );
             configMenu.AddTextOption(
                 mod: this.ModManifest,
-                name: () => "Auto Fertilizing",
+                name: () => "Автоматичні добрива",
                 tooltip: () => "Choose which kind of fertilizer to be automatically applied. Disabled by default.",
                 getValue: () => _config.FertilizerType,
                 setValue: value => _config.FertilizerType = value,
-                allowedValues: new string[] {"Disabled", "Remove all fertilizer", "Basic Fertilizer", "Quality Fertilizer", "Basic Retaining Soil", "Quality Retaining Soil", "Speed-Gro", "Deluxe Speed-Gro", "Hyper Speed-Gro", "Deluxe Fertilizer", "Deluxe Retaining Soil"}
+                allowedValues: new string[] {"Вимкнути", "Видалити всі добрива", "Звичайне добриво", "Високоякісне добриво", "Звичайний водоутримувальний ґрунт", "Якісний водоутримувальний ґрунт", "ШвидкоРост", "ШвидкоРост Делюкс", "Гіпер ШвидкоРост", "Добриво Делюкс", "Вологозберігаючий ґрунт Делюкс"}
             );
             configMenu.AddKeybind(
                 mod: this.ModManifest,
-                name: () => "Water Now Key",
+                name: () => "Клавіша поливу прямо зараз",
                 tooltip: () => "Press the key to manually water all crops. Still works even when Auto Watering is disabled.",
                 getValue: () => _config.WaterNowKey,
                 setValue: value => _config.WaterNowKey = value
@@ -100,53 +100,53 @@ namespace YetAnotherAutoWatering
             configMenu.AddSectionTitle(
                 mod: this.ModManifest,
                 tooltip: () => "Choose days to auto water, only functional if Auto Watering is enabled.",
-                text: () => "Days to water"
+                text: () => "Дні поливу"
             );
             configMenu.AddBoolOption(
                 mod: this.ModManifest,
-                name: () => "Sunday",
+                name: () => "Неділя",
                 tooltip: () => "Check to auto water on this day.",
                 getValue: () => this._config.DaysToWater.Sunday,
                 setValue: value => this._config.DaysToWater.Sunday = value
             );
             configMenu.AddBoolOption(
                 mod: this.ModManifest,
-                name: () => "Monday",
+                name: () => "Понеділок",
                 tooltip: () => "Check to auto water on this day.",
                 getValue: () => this._config.DaysToWater.Monday,
                 setValue: value => this._config.DaysToWater.Monday = value
             );
             configMenu.AddBoolOption(
                 mod: this.ModManifest,
-                name: () => "Tuesday",
+                name: () => "Вівторок",
                 tooltip: () => "Check to auto water on this day.",
                 getValue: () => this._config.DaysToWater.Tuesday,
                 setValue: value => this._config.DaysToWater.Tuesday = value
             );
             configMenu.AddBoolOption(
                 mod: this.ModManifest,
-                name: () => "Wednesday",
+                name: () => "Середа",
                 tooltip: () => "Check to auto water on this day.",
                 getValue: () => this._config.DaysToWater.Wednesday,
                 setValue: value => this._config.DaysToWater.Wednesday = value
             );
             configMenu.AddBoolOption(
                 mod: this.ModManifest,
-                name: () => "Thursday",
+                name: () => "Четвер",
                 tooltip: () => "Check to auto water on this day.",
                 getValue: () => this._config.DaysToWater.Thursday,
                 setValue: value => this._config.DaysToWater.Thursday = value
             );
             configMenu.AddBoolOption(
                 mod: this.ModManifest,
-                name: () => "Friday",
+                name: () => "П'ятниця",
                 tooltip: () => "Check to auto water on this day.",
                 getValue: () => this._config.DaysToWater.Friday,
                 setValue: value => this._config.DaysToWater.Friday = value
             );
             configMenu.AddBoolOption(
                 mod: this.ModManifest,
-                name: () => "Saturday",
+                name: () => "Субота",
                 tooltip: () => "Check to auto water on this day.",
                 getValue: () => this._config.DaysToWater.Saturday,
                 setValue: value => this._config.DaysToWater.Saturday = value
