@@ -11,12 +11,14 @@ using System.Collections.Generic;
 using System.Linq;
 using GenericModConfigMenu;
 using System.Xml.Linq;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace YetAnotherAutoWatering
 {
     /// <summary>The mod entry point.</summary>
     internal class ModEntry : Mod
     {
+
         //list of hoeDirt to water
         private readonly HashSet<HoeDirt> _hoeDirts = new HashSet<HoeDirt>();
         //list of indoor pots to water
@@ -27,34 +29,40 @@ namespace YetAnotherAutoWatering
         private bool _keyPressWater = false;
 
         //Defination of fertilizer ID.
-        private static readonly Dictionary<string, int?> _validFertilizerDict = new Dictionary<string, int?>()
-        {
-            { "Disabled", null },
-            { "Remove all fertilizer", 0 },
-            { "Basic Fertilizer", 368 },
-            { "Quality Fertilizer", 369 },
-            { "Basic Retaining Soil", 370 },
-            { "Quality Retaining Soil", 371 },
-            { "Speed-Gro", 465 },
-            { "Deluxe Speed-Gro", 466 },
-            { "Hyper Speed-Gro", 918 },
-            { "Deluxe Fertilizer", 919 },
-            { "Deluxe Retaining Soil", 920 }
-        };
+        private static Dictionary<string, int?> _validFertilizerDict = new Dictionary<string, int?>();
 
         public override void Entry(IModHelper helper)
         {
             _config = helper.ReadConfig<ModConfig>();
+
             helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
             helper.Events.GameLoop.DayStarted += this.OnDayStarted;
             helper.Events.GameLoop.SaveLoaded += this.OnSaveLoaded;
             helper.Events.World.TerrainFeatureListChanged += this.OnTerrainFeatureListChanged;
             helper.Events.World.ObjectListChanged += this.OnObjectListChanged;
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
+            I18n.Init(helper.Translation);
+
+            Dictionary<string, int?> newDictionary = new Dictionary<string, int?>
+            {
+                { "Disabled", null },
+                { "Remove all fertilizer", 0 },
+                { "Basic Fertilizer", 368 },
+                { "Quality Fertilizer", 369 },
+                { "Basic Retaining Soil", 370 },
+                { "Quality Retaining Soil", 371 },
+                { "Speed-Gro", 465 },
+                { "Deluxe Speed-Gro", 466 },
+                { "Hyper Speed-Gro", 918 },
+                { "Deluxe Fertilizer", 919 },
+                { "Deluxe Retaining Soil", 920 }
+            };
+            _validFertilizerDict = newDictionary.ToDictionary(entry => entry.Key, entry => entry.Value);
         }
 
         private void OnGameLaunched(object sender, GameLaunchedEventArgs e)
         {
+
             // get Generic Mod Config Menu's API (if it's installed)
             var configMenu = this.Helper.ModRegistry.GetApi<IGenericModConfigMenuApi>("spacechase0.GenericModConfigMenu");
             if (configMenu is null)
@@ -69,29 +77,43 @@ namespace YetAnotherAutoWatering
 
             //Main options
             configMenu.AddSectionTitle(
-                mod: this.ModManifest,
-                tooltip: () => "Basic configurations",
-                text: () => "Main Options"
+                mod: this.ModManifest,         
+                text: () => I18n.Label_MainOptions(),
+                tooltip: () => I18n.Label_MainOptions_Tooltip()
             );
             configMenu.AddBoolOption(
                 mod: this.ModManifest,
-                name: () => "Enable Auto Watering",
-                tooltip: () => "Check to enable this mod",
+                name: () => I18n.Option_EnableAutoWatering(),
+                tooltip: () => I18n.Option_EnableAutoWatering_Tooltip(),
                 getValue: () => this._config.Enabled,
                 setValue: value => this._config.Enabled = value
             );
             configMenu.AddTextOption(
                 mod: this.ModManifest,
-                name: () => "Auto Fertilizing",
-                tooltip: () => "Choose which kind of fertilizer to be automatically applied. Disabled by default.",
+                name: () => I18n.Option_AutoFertilizing(),
+                tooltip: () => I18n.Option_AutoFertilizing_Tooltip(),
                 getValue: () => _config.FertilizerType,
                 setValue: value => _config.FertilizerType = value,
-                allowedValues: new string[] {"Disabled", "Remove all fertilizer", "Basic Fertilizer", "Quality Fertilizer", "Basic Retaining Soil", "Quality Retaining Soil", "Speed-Gro", "Deluxe Speed-Gro", "Hyper Speed-Gro", "Deluxe Fertilizer", "Deluxe Retaining Soil"}
+                allowedValues: new string[] {
+                    "Disabled",
+                    "Remove all fertilizer",
+                    "Basic Fertilizer",
+                    "Quality Fertilizer",
+                    "Basic Retaining Soil",
+                    "Quality Retaining Soil",
+                    "Speed-Gro",
+                    "Deluxe Speed-Gro",
+                    "Hyper Speed-Gro",
+                    "Deluxe Fertilizer",
+                    "Deluxe Retaining Soil"
+                },
+                formatAllowedValue: FertilizerTranslated
             );
+
             configMenu.AddKeybind(
                 mod: this.ModManifest,
-                name: () => "Water Now Key",
-                tooltip: () => "Press the key to manually water all crops. Still works even when Auto Watering is disabled.",
+                name: () => I18n.Option_WaterNowKey(),
+                tooltip: () => I18n.Option_WaterNowKey_Tooltip(),
                 getValue: () => _config.WaterNowKey,
                 setValue: value => _config.WaterNowKey = value
             );
@@ -99,55 +121,55 @@ namespace YetAnotherAutoWatering
             //Days to water Configuration
             configMenu.AddSectionTitle(
                 mod: this.ModManifest,
-                tooltip: () => "Choose days to auto water, only functional if Auto Watering is enabled.",
-                text: () => "Days to water"
+                text: () => I18n.Label_DaysToWater(),
+                tooltip: () => I18n.Label_DaysToWater_Tooltip()
             );
             configMenu.AddBoolOption(
                 mod: this.ModManifest,
-                name: () => "Sunday",
-                tooltip: () => "Check to auto water on this day.",
+                name: () => I18n.Option_DaysToWater_Sunday(),
+                tooltip: () => I18n.Option_DaysToWater_Tooltip(),
                 getValue: () => this._config.DaysToWater.Sunday,
                 setValue: value => this._config.DaysToWater.Sunday = value
             );
             configMenu.AddBoolOption(
                 mod: this.ModManifest,
-                name: () => "Monday",
-                tooltip: () => "Check to auto water on this day.",
+                name: () => I18n.Option_DaysToWater_Monday(),
+                tooltip: () => I18n.Option_DaysToWater_Tooltip(),
                 getValue: () => this._config.DaysToWater.Monday,
                 setValue: value => this._config.DaysToWater.Monday = value
             );
             configMenu.AddBoolOption(
                 mod: this.ModManifest,
-                name: () => "Tuesday",
-                tooltip: () => "Check to auto water on this day.",
+                name: () => I18n.Option_DaysToWater_Tuesday(),
+                tooltip: () => I18n.Option_DaysToWater_Tooltip(),
                 getValue: () => this._config.DaysToWater.Tuesday,
                 setValue: value => this._config.DaysToWater.Tuesday = value
             );
             configMenu.AddBoolOption(
                 mod: this.ModManifest,
-                name: () => "Wednesday",
-                tooltip: () => "Check to auto water on this day.",
+                name: () => I18n.Option_DaysToWater_Wednesday(),
+                tooltip: () => I18n.Option_DaysToWater_Tooltip(),
                 getValue: () => this._config.DaysToWater.Wednesday,
                 setValue: value => this._config.DaysToWater.Wednesday = value
             );
             configMenu.AddBoolOption(
                 mod: this.ModManifest,
-                name: () => "Thursday",
-                tooltip: () => "Check to auto water on this day.",
+                name: () => I18n.Option_DaysToWater_Tuesday(),
+                tooltip: () => I18n.Option_DaysToWater_Tooltip(),
                 getValue: () => this._config.DaysToWater.Thursday,
                 setValue: value => this._config.DaysToWater.Thursday = value
             );
             configMenu.AddBoolOption(
                 mod: this.ModManifest,
-                name: () => "Friday",
-                tooltip: () => "Check to auto water on this day.",
+                name: () => I18n.Option_DaysToWater_Friday(),
+                tooltip: () => I18n.Option_DaysToWater_Tooltip(),
                 getValue: () => this._config.DaysToWater.Friday,
                 setValue: value => this._config.DaysToWater.Friday = value
             );
             configMenu.AddBoolOption(
                 mod: this.ModManifest,
-                name: () => "Saturday",
-                tooltip: () => "Check to auto water on this day.",
+                name: () => I18n.Option_DaysToWater_Saturday(),
+                tooltip: () => I18n.Option_DaysToWater_Tooltip(),
                 getValue: () => this._config.DaysToWater.Saturday,
                 setValue: value => this._config.DaysToWater.Saturday = value
             );
@@ -317,6 +339,25 @@ namespace YetAnotherAutoWatering
                 case 5: return _config.DaysToWater.Friday;
                 case 6: return _config.DaysToWater.Saturday;
                 default: return true;
+            }
+        }
+
+        private string FertilizerTranslated(string fertilizer)
+        {
+            switch (fertilizer)
+            {
+                case "Disabled": return I18n.Option_AutoFertilizing_Item_Disabled();
+                case "Remove all fertilizer": return I18n.Option_AutoFertilizing_Item_RemoveAllFertilizer();
+                case "Basic Fertilizer": return I18n.Option_AutoFertilizing_Item_BasicFertilizer();
+                case "Quality Fertilizer": return I18n.Option_AutoFertilizing_Item_QualityFertilizer();
+                case "Basic Retaining Soil": return I18n.Option_AutoFertilizing_Item_BasicRetainingSoil();
+                case "Quality Retaining Soil": return I18n.Option_AutoFertilizing_Item_QualityRetainingSoil();
+                case "Speed-Gro": return I18n.Option_AutoFertilizing_Item_SpeedGro();
+                case "Deluxe Speed-Gro": return I18n.Option_AutoFertilizing_Item_DeluxeSpeedGro();
+                case "Hyper Speed-Gro": return I18n.Option_AutoFertilizing_Item_HyperSpeedGro();
+                case "Deluxe Fertilizer": return I18n.Option_AutoFertilizing_Item_DeluxeFertilizer();
+                case "Deluxe Retaining Soil": return I18n.Option_AutoFertilizing_Item_DeluxeRetainingSoil();
+                default: return "";
             }
         }
 

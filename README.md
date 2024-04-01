@@ -29,7 +29,7 @@ A Stardrew Valley mod to water and fertilize all crops automatically.
 - Automatically apply fertilizer to all crops. ✔
 - Allow configurable days when watering takes place.✔
 - In game configuration with [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mods/5098).✔
-- Chinese Translation 中文汉化.
+- Chinese Translation 中文汉化.✔
 
 
 
