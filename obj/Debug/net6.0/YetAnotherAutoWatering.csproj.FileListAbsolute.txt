@@ -7,3 +7,12 @@ I:\Desktop\Autowatering\AutoWateringNew\AutoWateringNew\obj\Debug\net6.0\YetAnot
 I:\Desktop\Autowatering\AutoWateringNew\AutoWateringNew\obj\Debug\net6.0\YetAnotherAutoWatering.csproj.CoreCompileInputs.cache
 I:\Desktop\Autowatering\AutoWateringNew\AutoWateringNew\obj\Debug\net6.0\YetAnotherAutoWatering.sourcelink.json
 I:\Desktop\Autowatering\AutoWateringNew\AutoWateringNew\obj\Debug\net6.0\YetAnotherAutoWatering.dll
+H:\Projects\YetAnotherAutoWatering-StardrewValleyMod\bin\Debug\net6.0\YetAnotherAutoWatering.deps.json
+H:\Projects\YetAnotherAutoWatering-StardrewValleyMod\bin\Debug\net6.0\YetAnotherAutoWatering.dll
+H:\Projects\YetAnotherAutoWatering-StardrewValleyMod\obj\Debug\net6.0\YetAnotherAutoWatering.csproj.AssemblyReference.cache
+H:\Projects\YetAnotherAutoWatering-StardrewValleyMod\obj\Debug\net6.0\YetAnotherAutoWatering.GeneratedMSBuildEditorConfig.editorconfig
+H:\Projects\YetAnotherAutoWatering-StardrewValleyMod\obj\Debug\net6.0\YetAnotherAutoWatering.AssemblyInfoInputs.cache
+H:\Projects\YetAnotherAutoWatering-StardrewValleyMod\obj\Debug\net6.0\YetAnotherAutoWatering.AssemblyInfo.cs
+H:\Projects\YetAnotherAutoWatering-StardrewValleyMod\obj\Debug\net6.0\YetAnotherAutoWatering.csproj.CoreCompileInputs.cache
+H:\Projects\YetAnotherAutoWatering-StardrewValleyMod\obj\Debug\net6.0\YetAnotherAutoWatering.sourcelink.json
+H:\Projects\YetAnotherAutoWatering-StardrewValleyMod\obj\Debug\net6.0\YetAnotherAutoWatering.dll

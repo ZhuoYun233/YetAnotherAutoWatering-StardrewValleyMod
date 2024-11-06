@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <GamePath>I:\Stardew Valley</GamePath>
+    <GamePath>F:\SteamLibrary\steamapps\common\Stardew Valley\</GamePath>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>

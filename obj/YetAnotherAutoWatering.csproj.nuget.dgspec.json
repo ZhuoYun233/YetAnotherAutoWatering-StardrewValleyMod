@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "I:\\Desktop\\Autowatering\\AutoWateringNew\\AutoWateringNew\\YetAnotherAutoWatering.csproj": {}
+    "H:\\Projects\\YetAnotherAutoWatering-StardrewValleyMod\\YetAnotherAutoWatering.csproj": {}
   },
   "projects": {
-    "I:\\Desktop\\Autowatering\\AutoWateringNew\\AutoWateringNew\\YetAnotherAutoWatering.csproj": {
+    "H:\\Projects\\YetAnotherAutoWatering-StardrewValleyMod\\YetAnotherAutoWatering.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "I:\\Desktop\\Autowatering\\AutoWateringNew\\AutoWateringNew\\YetAnotherAutoWatering.csproj",
+        "projectUniqueName": "H:\\Projects\\YetAnotherAutoWatering-StardrewValleyMod\\YetAnotherAutoWatering.csproj",
         "projectName": "YetAnotherAutoWatering",
-        "projectPath": "I:\\Desktop\\Autowatering\\AutoWateringNew\\AutoWateringNew\\YetAnotherAutoWatering.csproj",
-        "packagesPath": "C:\\Users\\于昊男\\.nuget\\packages\\",
-        "outputPath": "I:\\Desktop\\Autowatering\\AutoWateringNew\\AutoWateringNew\\obj\\",
+        "projectPath": "H:\\Projects\\YetAnotherAutoWatering-StardrewValleyMod\\YetAnotherAutoWatering.csproj",
+        "packagesPath": "C:\\Users\\YHN17\\.nuget\\packages\\",
+        "outputPath": "H:\\Projects\\YetAnotherAutoWatering-StardrewValleyMod\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\于昊男\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\YHN17\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -74,7 +70,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

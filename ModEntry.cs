@@ -154,7 +154,7 @@ namespace YetAnotherAutoWatering
             );
             configMenu.AddBoolOption(
                 mod: this.ModManifest,
-                name: () => I18n.Option_DaysToWater_Tuesday(),
+                name: () => I18n.Option_DaysToWater_Thursday(),
                 tooltip: () => I18n.Option_DaysToWater_Tooltip(),
                 getValue: () => this._config.DaysToWater.Thursday,
                 setValue: value => this._config.DaysToWater.Thursday = value
